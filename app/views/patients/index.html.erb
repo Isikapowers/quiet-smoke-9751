@@ -1,0 +1,8 @@
+<h1>List of All Patients(ordered by oldest)</h1>
+<h3>
+  <ul>
+    <% @patients.each do |patient| %>
+    <li><%= patient.name %></li>
+    <% end %>
+  </ul>
+</h3>

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Patient do
+RSpec.describe "Patients Index Page" do
   before :each do
     @grey = Hospital.create!(name: "Grey Sloan Memorial Hospital")
 
@@ -11,18 +11,15 @@ RSpec.describe Patient do
     @logan = @meredith.patients.create!(name: "Logan Mcgin", age: 15)
 
     @betty = @miranda.patients.create!(name: "Betty Boo", age: 71)
-  end
-  
-  describe "relationships" do
-    it { should have_many(:appointments) }
-    it { should have_many(:doctors).through(:appointments) }
+
+    visit patients_path
   end
 
-  describe "class methods" do
-    it "can order patients by age from oldest to youngest" do
-      expect(Patient.age_ordered.first).to eq(@betty)
-      expect(Patient.age_ordered.second).to eq(@denny)
-      expect(Patient.age_ordered.last).to eq(@logan)
+  describe "#Extension" do
+    it "displays the names of all patients listed from oldest to youngest" do
+
+      expect(@betty.name).to appear_before(@denny.name)
+      expect(@denny.name).to appear_before(@logan.name)
     end
   end
 end
