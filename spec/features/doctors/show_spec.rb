@@ -46,7 +46,8 @@ RSpec.describe "Doctors Show Page" do
   describe "#User Story 3--Remove a patient from a doctor" do
     it "has a button next to each patient to remove that patient from that doctor's caseload" do
 
-      expect(page).to have_button("Remove")
+      expect(page).to have_button("Remove #{@denny.name}")
+      expect(page).to have_button("Remove #{@logan.name}")
     end
 
     it "redirects the user back to the doctor's show page after removing the patient" do
@@ -54,6 +55,7 @@ RSpec.describe "Doctors Show Page" do
       click_on "Remove #{@denny.name}"
 
       expect(current_path).to eq(doctor_path(@meredith))
+      
       expect(page).to have_no_content(@denny.name)
       expect(page).to have_content(@logan.name)
     end
