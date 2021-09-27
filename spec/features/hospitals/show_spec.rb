@@ -1,6 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe Hospital do
+RSpec.describe "Hopital Show Page" do
   before :each do
     @grey = Hospital.create!(name: "Grey Sloan Memorial Hospital")
 
@@ -11,19 +11,24 @@ RSpec.describe Hospital do
     @logan = @meredith.patients.create!(name: "Logan Mcgin", age: 15)
 
     @betty = @miranda.patients.create!(name: "Betty Boo", age: 71)
+
+    visit hospital_path(@grey)
   end
 
-  describe 'relationships' do
-    it { should have_many(:doctors) }
-  end
+  describe "#User Story 2" do
+    it "displays the hospital's name" do
 
-  describe "instance methods" do
-    it "can count the number of doctors in that hospital" do
-      expect(@grey.number_of_doctors).to eq(2)
+      expect(page).to have_content(@grey.name)
     end
 
-    it "can get a unique list of universities" do
-      expect(@grey.uniq_universities).to eq(["Standford University"])
+    it "displays the number of doctors that work in this hospital" do
+
+      expect(page).to have_content(2)
+    end
+
+    it "displays a unique list of universities that this hospital's doctors attended" do
+
+      expect(page).to have_content("Standford University")
     end
   end
 end
